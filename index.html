@@ -2,85 +2,179 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Design</title>
-    <style>
-        body {
-            background-color: rgb(248, 243, 243);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Card Design</title>
+  <style>
+    :root {
+      --radius: 14px;
+      --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+      --bg: #f7f5f8;
+      --card-bg: #ffffff;
+      --primary: #2f53e2;
+      --muted: #6e7a93;
+      --transition: 0.35s cubic-bezier(.3,.1,.25,1);
+      --font-stack: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
 
-        .card {
-            background-color: white;
-            width: 290px;
-            height: 500px;
-            border-radius: 11px;
-            padding: 12px;
-            box-shadow: 0 0 16px rgba(0, 0, 0, 0.20);
-            /* shadow on all sides */
-            text-align: left;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .card img {
-            border-radius: 11px;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-family: var(--font-stack);
+      color: #1f2d3a;
+      line-height: 1.45;
+      padding: 16px;
+    }
 
-        .tags {
-            margin-top: 7px;
-        }
+    .card {
+      position: relative;
+      width: 320px;
+      max-width: 100%;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 0; /* inner parts handle spacing */
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
 
-        .tags span {
-            border: 2px solid gray;
-            padding: 3px 4px;
-            color: gray;
-            border-radius: 40px;
-            margin-left: 11px;
-            font-size: 12px;
-        }
- 
-        .button_wrap {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 32px 60px -8px rgba(0,0,0,0.18);
+    }
 
-        button {
-            background-color: rgb(197, 228, 248);
-            font-size: 12px;
-            color: rgb(36, 70, 184);
-            border-radius: 40px;
-            border-color: rgb(197, 228, 248);
-        }
-        button:hover {
-            background-color: rgb(199, 230, 250) ;
-        }
-        </style
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
 
-        </head>
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition);
+    }
 
-        <body>
-            <div class="card">
-                <img src="https://picsum.photos/seed/picsum/290/220
-" alt="">
-                <div class="tags">
-                    <span>Icepath</span>
-                    <span>Sky</span>
-                    </div>
-                    <h2>Naruto</h2>
-                    <p>
-                        Naruto Uzumaki is a determined and cheerful ninja from the Hidden Leaf Village. As a child,
-        he was isolated because of the Nine-Tails Fox sealed inside him. Despite loneliness,
-        he never gave up. Through hard work and friendship,
-        he grows stronger and aims to become Hokage,
-        earning everyone's respect and love.
-                    </p>
-                    <div class="button_wrap">
-                        <button>Read More</button>
-                    </div>        
-        </div>
-        </body>
-        </html>
+    .card:hover .image-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .content {
+      padding: 20px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .tags span {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 999px;
+      background: rgba(47, 83, 226, 0.08);
+      color: var(--primary);
+      border: 1px solid rgba(47, 83, 226, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #4f5f7f;
+      flex: 1;
+    }
+
+    .actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .read-more {
+      background: linear-gradient(135deg, rgba(47,83,226,1) 0%, rgba(61,128,244,1) 100%);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      letter-spacing: 0.8px;
+      transition: filter var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .read-more:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .read-more:active {
+      transform: translateY(1px);
+    }
+
+    /* Optional small metadata or icon placeholder */
+    .meta {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #a3afc2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" aria-label="Profile card for Naruto Uzumaki">
+    <div class="image-wrapper">
+      <img src="WhatsApp Image 2025-08-02 at 6.28.58 PM.jpeg" alt="Naruto Uzumaki">
+    </div>
+    <div class="content">
+      <div class="tags">
+        <span>Anime</span>
+        <span>Naruto</span>
+      </div>
+      <h2>Naruto</h2>
+      <p>Naruto Uzumaki is a determined and cheerful ninja from the Hidden Leaf Village. Isolated in childhood due to the Nine-Tails Fox inside him, he never surrendered to loneliness. Through perseverance and bonds of friendship, he grows stronger and aspires to become Hokage, earning respect and love.</p>
+      <div class="actions">
+        <div class="meta">Shinobi Profile</div>
+        <button class="read-more" aria-label="Read more about Naruto">Read More</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
